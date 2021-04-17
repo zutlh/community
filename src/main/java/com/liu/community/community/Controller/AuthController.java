@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 @Controller
@@ -23,8 +25,10 @@ public class AuthController {
     private String ClientSecret;
     @Value("${github.redirect_uri}")
     private String redirect_uri;
+
     @GetMapping("/callback")
-    public String callback(@RequestParam(name = "code") String code, @RequestParam(name = "state") String state) throws IOException {
+    public String callback(@RequestParam(name = "code") String code, @RequestParam(name = "state") String state,
+               HttpServletRequest request) throws IOException {
         AccessTokenDTO accessTokenDto = new AccessTokenDTO();
         accessTokenDto.setCode(code);
         accessTokenDto.setRedirect_uri(redirect_uri);
@@ -33,7 +37,15 @@ public class AuthController {
         accessTokenDto.setClient_secret(ClientSecret);
         String accessToken = githubProvider.getAccessToken(accessTokenDto);
         GithubUser user = githubProvider.getUser(accessToken);
-        System.out.println(user.getName());
-        return "index";
+        if (user != null) {
+            //登录成功, 写cookie、session
+            request.getSession().setAttribute("user",user);
+            return "redirect:/";
+
+        } else {
+            //登录失败,重新登录
+            return "redirect:/";
+        }
+
     }
 }
