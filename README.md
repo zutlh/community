@@ -23,7 +23,12 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 
+alter table user
+	add bio varchar(256) null;
 
+```
+```bash
+mvn flyway:migrate
 ```
 
 
