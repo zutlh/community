@@ -54,6 +54,7 @@ public class AuthController {
             user.setToken(token);
             user.setName(githubUser.getName());
             user.setAccount(String.valueOf(githubUser.getId()));
+            user.setAvatarUrl(githubUser.getAvatar_url());
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
             userMapper.insert(user);

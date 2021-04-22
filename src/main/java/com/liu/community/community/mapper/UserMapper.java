@@ -11,7 +11,7 @@ import javax.servlet.http.Cookie;
 
 @Mapper
 public interface UserMapper {
-    @Insert("insert into user(name,token,account_id,gmtCreate,gmtModified) values(#{name},#{token},#{account_id},#{gmtCreate},#{gmtModified})")
+    @Insert("insert into user(name,token,account_id,gmtCreate,gmtModified,avatar_url) values(#{name},#{token},#{account},#{gmtCreate},#{gmtModified},#{avatarUrl})")
     void insert(User user);
     @Select("select * from user where token = #{token}")
     User findByToken(@Param("token") String token);

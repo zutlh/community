@@ -6,7 +6,7 @@
 [es](https://elasticsearch.cn/)
 [bootstrap](https://v3.bootcss.com/)
 [SpringBoot 文档](https://docs.spring.io/spring-boot/docs/2.0.0.RC1/reference/htmlsingle/#boot-features-embedded-database-support)
-
+[Lombok](https://projectlombok.org/setup/maven)
 ## 工具
 git
 
