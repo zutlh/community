@@ -1,6 +1,7 @@
 package com.liu.community.community.Controller;
 
 import com.alibaba.fastjson.JSON;
+import com.liu.community.community.dto.PaginationDTO;
 import com.liu.community.community.dto.QuestionDTO;
 import com.liu.community.community.mapper.QuestionMapper;
 import com.liu.community.community.mapper.UserMapper;
@@ -27,8 +28,10 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(HttpServletRequest request,
-                       Model model
-    ) {
+                        Model model,
+                        @RequestParam(name = "page",defaultValue = "1") Integer page,
+                        @RequestParam(name = "size",defaultValue = "5") Integer size
+                        ) {
         Cookie[] cookies = request.getCookies();
         if (cookies != null && cookies.length != 0) {
             for (Cookie cookie : cookies) {
@@ -43,8 +46,8 @@ public class IndexController {
             }
         }
 
-        List<QuestionDTO> questionList = questionService.list();
-        model.addAttribute("questions",questionList);
+        PaginationDTO pagination = questionService.list(page,size);
+        model.addAttribute("pagination", pagination);
         return "index";
 
 
