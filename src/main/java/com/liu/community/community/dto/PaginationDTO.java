@@ -17,11 +17,20 @@ public class PaginationDTO {
     private List<Integer> pages = new ArrayList<>();
 
     public void setPagination(Integer totalCount, Integer page, Integer size) {
-        Integer totalPage = 0;
+        Integer totalPage;
         if (totalCount % size == 0) {
             totalPage = totalCount / size;
         } else {
             totalPage = totalCount / size + 1;
+        }
+        pages.add(page);
+        for (int i = 1; i <= 3; i++) {
+            if (page - i > 0) {
+                pages.add(page - i, 0);
+            }
+            if (page + i <= totalCount) {
+                pages.add(page + i);
+            }
         }
         //是否展示上一页
         if (page == 1) {
@@ -40,6 +49,11 @@ public class PaginationDTO {
             showFirstPage = false;
         } else {
             showFirstPage = true;
+        }
+        if (pages.contains(totalCount)) {
+            showEndPage = false;
+        } else {
+            showEndPage = true;
         }
     }
 }
