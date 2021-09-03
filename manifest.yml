@@ -1,0 +1,10 @@
+---
+applications:
+  - name: community
+    random-route: true
+    instances: 1
+    host: community
+    buildpack: https://github.com/zutlh/java-buildpack
+    memory: 1024M
+    path: target/community-0.0.1-SNAPSHOT.jar
+    domain: zutlh.com
